@@ -48,7 +48,7 @@ release_notes.new_header(level=1, title='Release notes draft')
 
 === Getting tasks with a specified tag
 
-A function called `get_tasks_with_tag` gets all tasks in the "Done" section with the specified tag.
+A function called `get_tasks_with_tag()` gets all tasks in the "Done" section with the specified tag.
 
 It first calls Asana's `get_tasks_for_section()` function on the client. The function takes in the `section_id` and optional fields to search for:
 
@@ -92,7 +92,9 @@ release_notes.create_md_file()
 
 == Customizing this script
 
-To customize this script, you'll need to set the environment variables mentioned in the <<_authentication>> section. Also, you may need to change the nested dictionary keys in the `write_tasks()` method. Right now, it accesses the third custom field ("Task Type" in my project), but that may not be in the case in yours.
+To customize this script, you'll need to do the following:
 
-Feel free to change the string constructed in the `write_tasks()` function, too.
-
+* Set the environment variables mentioned in the <<_authentication>> section
+* Change the nested dictionary keys in the `write_tasks()` function (right now, it accesses the third custom field ("Task Type") in my project, but that may not be the case in yours)
+* Change the task types in the `main()` function
+* Change the string constructed in the `write_tasks()` function

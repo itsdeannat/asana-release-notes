@@ -38,28 +38,28 @@ class ReleaseNotesGenerator(object):
 
         return release_notes
 
-    def get_version_one_tasks(self):
-        """Gets all tasks in the Done section with a tag of 1.0.0
+    def get_tasks_with_tag(self):
+        """Gets all tasks in the Done section with a particular tag
 
         Returns:
-            list: A list of all tasks, incomplete or complete, with a 1.0.0 tag
+            list: A list of all tasks, incomplete or complete, with a matching tag_id
         """
         tasks = self.client.tasks.get_tasks_for_section(self.section_id,
                                                         {'opt_fields': ['name', 'custom_fields', 'completed', 'tags']})
-        version_one_tasks = []
+        tasks_with_tag = []
 
         for task in tasks:
             tag_index = 0
             for tag in task['tags']:
-                if tag['gid'] != self.tag_id:
+                if tag['gid'] != self.version_id:
                     while tag_index <= len(task['tags']):
                         tag_index += 1
                         continue
                 else:
-                    version_one_tasks.append(task)
+                    tasks_with_tag.append(task)
 
-        if version_one_tasks:
-            return version_one_tasks
+        if tasks_with_tag:
+            return tasks_with_tag
         else:
             print('No tasks were completed for v1.0.0')
             sys.exit()
@@ -102,7 +102,7 @@ class ReleaseNotesGenerator(object):
         """
         release_notes_generator = ReleaseNotesGenerator()
         release_notes = release_notes_generator.initialize_release_notes()
-        tasks = release_notes_generator.get_version_one_tasks()
+        tasks = release_notes_generator.get_tasks_with_tag()
         release_notes = release_notes_generator.write_tasks('Feature', tasks, release_notes)
         release_notes = release_notes_generator.write_tasks('Bugfix', tasks, release_notes)
         release_notes = release_notes_generator.write_tasks('Hotfix', tasks, release_notes)

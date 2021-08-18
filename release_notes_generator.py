@@ -1,6 +1,6 @@
-import asana
 import os
 import sys
+import asana
 from dotenv import load_dotenv
 from mdutils.mdutils import MdUtils
 

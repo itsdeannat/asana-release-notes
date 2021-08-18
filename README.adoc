@@ -48,7 +48,7 @@ release_notes.new_header(level=1, title='Release notes draft')
 
 === Getting tasks with a specified tag
 
-A function called `get_tasks_with_tag()` gets all tasks in the "Done" section with the specified tag.
+A function called `get_tasks_with_tag()` gets all tasks in the "Done" section with a specified tag.
 
 It first calls Asana's `get_tasks_for_section()` function on the client. The function takes in the `section_id` and optional fields to search for:
 
@@ -61,7 +61,7 @@ If the task has a matching tag, it is added to a `list`.
 
 === Writing tasks to a Markdown file
 
-The function `write_tasks()` writes all tasks with a task type of "Feature", "Bugfix", "Hotfix", or "Testing" to a Markdown file. It takes in three parameters: the task type to search for, the list of tasks with the specified tag, and a `release_notes` object.
+The function `write_tasks()` writes all tasks with a task type of "Feature", "Bugfix", "Hotfix", or "Testing" to a Markdown file. It takes in three parameters: the task type to search for, the list of tasks with a specified tag, and a `release_notes` object.
 
 It first checks to see if the task type matches the task type the function is searching for. If it does, the function constructs a string that consists of the task's name and URL and adds it to a `list`.
 

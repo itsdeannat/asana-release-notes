@@ -1,5 +1,8 @@
 image: "python:3.8"
 
+stages:
+  static-analysis
+
 before_script:
   - python --version
   - pip install -r requirements.txt
@@ -9,3 +12,5 @@ static-analysis:
   script:
     - echo "Running pylint"
     - pylint release-notes-generator.py
+  tags:
+    - python

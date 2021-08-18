@@ -1,7 +1,7 @@
 image: "python:3.8"
 
 stages:
-  - static-analysis
+  - test
 
 before_script:
   - python --version

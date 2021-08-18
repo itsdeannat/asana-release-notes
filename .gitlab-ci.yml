@@ -1,15 +1,15 @@
 image: "python:3.8"
 
-stages:
-  - test
-
 before_script:
   - python3 --version
   - python3 -m pip install -r requirements.txt
 
+stages:
+  - test
+
 static-analysis:
   stage: test
   script:
-    - pylint release-notes-generator.py
+    - pylint release_notes_generator.py
   tags:
     - python

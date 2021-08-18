@@ -1,0 +1,98 @@
+= asana-release-notes
+:toc:
+:toc-title: Table of Contents
+
+== Overview
+
+`asana-release-notes` is a Python script that:
+
+1. Gets incomplete tasks in the "Done" section of an Asana project with a specified tag
+2. Writes those tasks to a Markdown file to create a release notes draft
+
+== Prerequisites
+
+* Python 3
+* pip
+
+== Installation
+
+If someone wanted to adapt this script for their own needs, they'd need to run the following command to install the packages listed in `requirements.txt`:
+
+[source,bash]
+----
+pip install -r requirements.txt
+----
+
+== Features
+
+=== Authentication
+
+This script first checks to make sure the user is authorized to make requests to Asana's API and also loads some environment variables:
+
+* `ASANA_TOKEN`: a Personal Access Token
+* `PROJECT_ID`: the GID for the Asana project
+* `SECTION_ID`: the GID for the "Done" section in the project
+* `TAG_ID`: the GID for the tag in question
+
+There's some logic that checks the validity of the Personal Access Token and constructs an Asana client if the user is authorized.
+
+=== Initializing a Markdown file
+
+This script uses the Python package `mdutils` to create a Markdown file, and set its filename and top-level header.
+
+[source,python]
+----
+release_notes = MdUtils(file_name='release-notes')
+release_notes.new_header(level=1, title='Release notes draft')
+----
+
+=== Getting tasks with a specified tag
+
+A function called `get_tasks_with_tag` gets all tasks in the "Done" section with the specified tag.
+
+It first calls Asana's `get_tasks_for_section()` function on the client. The function takes in the `section_id` and optional fields to search for:
+
+* `name`: the task's name
+* `custom_fields`: all custom fields for a task, like "task type", "size", or "effort"
+* `completed`: boolean indicating if the task is complete
+* `tags`: all tags for a task
+
+If the task has a matching tag, it is added to a `list`.
+
+=== Writing tasks to a Markdown file
+
+The function `write_tasks()` writes all tasks with a task type of "Feature", "Bugfix", "Hotfix", or "Testing" to a Markdown file. It takes in three parameters: the task type to search for, the list of tasks with the specified tag, and a `release_notes` object.
+
+It first checks to see if the task type matches the task type the function is searching for. If it does, the function constructs a string that consists of the task's name and URL and adds it to a `list`.
+
+[source,python]
+----
+if task['custom_fields'][2]['display_value'] == task_type:
+    items = [task['name'] + ' ' + '[[View ticket]]' + '(https://app.asana.com/0/' + self.project_id + '/' + task['gid'] + ')']
+----
+
+Next, there's some logic that checks to make sure that the `items` list isn't empty before writing the task type as a heading to the Markdown file. Then, the function calls the `mdutils` function `new_list()` on the `release_notes` object. `new_list()` takes in a list of strings and writes each list item as a bulleted item to a Markdown file.
+
+=== Creating a Markdown file
+
+The last part of the script calls several functions to initialize the Markdown file, search through all tasks in the "Done" column, and then create the file.
+
+[source, python]
+----
+release_notes = release_notes_generator.initialize_release_notes()
+tasks = release_notes_generator.get_tasks_with_tag()
+
+release_notes = release_notes_generator.write_tasks('Feature', tasks, release_notes)
+release_notes = release_notes_generator.write_tasks('Bugfix', tasks, release_notes)
+release_notes = release_notes_generator.write_tasks('Hotfix', tasks, release_notes)
+release_notes = release_notes_generator.write_tasks('Testing', tasks, release_notes)
+
+release_notes.create_md_file()
+----
+
+== Customizing this script
+
+To customize this script, you'll need to set the environment variables mentioned in the <<_authentication>> section. Also, you may need to change the nested dictionary keys in the `write_tasks()` method. Right now, it accesses the third custom field ("Task Type" in my project), but that may not be in the case in yours.
+
+Feel free to change the string constructed in the `write_tasks()` function, too.
+

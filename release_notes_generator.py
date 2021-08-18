@@ -51,7 +51,7 @@ class ReleaseNotesGenerator(object):
         for task in tasks:
             tag_index = 0
             for tag in task['tags']:
-                if tag['gid'] != self.version_id:
+                if tag['gid'] != self.tag_id:
                     while tag_index <= len(task['tags']):
                         tag_index += 1
                         continue

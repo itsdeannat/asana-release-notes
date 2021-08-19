@@ -2,6 +2,7 @@ image: "python:3.8"
 
 before_script:
   - python3 --version
+  - python3 -m pip install pylint
 
 stages:
   - test
@@ -9,7 +10,6 @@ stages:
 static-analysis:
   stage: test
   script:
-    - python3 -m pip install pylint
     - pylint release_notes_generator.py
   tags:
     - python

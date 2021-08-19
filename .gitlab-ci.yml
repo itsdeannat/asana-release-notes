@@ -10,6 +10,6 @@ stages:
 static-analysis:
   stage: test
   script:
-    - pylint release_notes_generator.py
+    - python3 -m pylint release_notes_generator.py
   tags:
     - python

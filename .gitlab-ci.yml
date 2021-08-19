@@ -9,7 +9,7 @@ stages:
 static-analysis:
   stage: test
   script:
-    - python3 -m pip install -r requirements.txt
+    - python3 -m pip install pylint
     - pylint release_notes_generator.py
   tags:
     - python

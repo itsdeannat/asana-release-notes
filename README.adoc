@@ -48,9 +48,9 @@ release_notes.new_header(level=1, title='Release notes draft')
 
 === Getting tasks with a specified tag
 
-A function called `get_tasks_with_tag()` gets all tasks in the "Done" section with a specified tag.
+A method called `get_tasks_with_tag()` gets all tasks in the "Done" section with a specified tag.
 
-It first calls Asana's `get_tasks_for_section()` function on the client. The function takes in the `section_id` and optional fields to search for:
+It first calls Asana's `get_tasks_for_section()` method on the client. The method takes in the `section_id` and optional fields to search for:
 
 * `name`: the task's name
 * `custom_fields`: all custom fields for a task, like "task type", "size", or "effort"
@@ -61,9 +61,9 @@ If the task has a matching tag, it is added to a `list`.
 
 === Writing tasks to a Markdown file
 
-The function `write_tasks()` writes all tasks with a task type of "Feature", "Bugfix", "Hotfix", or "Testing" to a Markdown file. It takes in three parameters: the task type to search for, the list of tasks with a specified tag, and a `release_notes` object.
+The method `write_tasks()` writes all tasks with a task type of "Feature", "Bugfix", "Hotfix", or "Testing" to a Markdown file. It takes in three parameters: the task type to search for, the list of tasks with a specified tag, and a `release_notes` object.
 
-It first checks to see if the task type matches the task type the function is searching for. If it does, the function constructs a string that consists of the task's name and URL and adds it to a `list`.
+It first checks to see if the task type matches the task type the method is searching for. If it does, the method constructs a string that consists of the task's name and URL and adds it to a `list`.
 
 [source,python]
 ----
@@ -71,11 +71,11 @@ if task['custom_fields'][2]['display_value'] == task_type:
     items = [task['name'] + ' ' + '[[View ticket]]' + '(https://app.asana.com/0/' + self.project_id + '/' + task['gid'] + ')']
 ----
 
-Next, there's some logic that checks to make sure that the `items` list isn't empty before writing the task type as a heading to the Markdown file. Then, the function calls the `mdutils` function `new_list()` on the `release_notes` object. `new_list()` takes in a list of strings and writes each list item as a bulleted item to a Markdown file.
+Next, there's some logic that checks to make sure that the `items` list isn't empty before writing the task type as a heading to the Markdown file. Then, the method calls the `mdutils` method `new_list()` on the `release_notes` object. `new_list()` takes in a list of strings and writes each list item as a bulleted item to a Markdown file.
 
 === Creating a Markdown file
 
-The last part of the script calls several functions to initialize the Markdown file, search through all tasks in the "Done" column, and then create the file.
+The last part of the script calls several methods to initialize the Markdown file, search through all tasks in the "Done" column, and then create the file.
 
 [source, python]
 ----
@@ -95,6 +95,7 @@ release_notes.create_md_file()
 To customize this script, you'll need to do the following:
 
 * Set the environment variables mentioned in the <<_authentication>> section
-* Change the nested dictionary keys in the `write_tasks()` function (right now, it accesses the third custom field ("Task Type") in my project, but that may not be the case in yours)
+* Change the nested dictionary keys in the `write_tasks()` method (right now, it accesses the third custom field ("Task Type") in my project, but that may not be the case in yours)
 * Change the task types in the `main()` function
-* Change the string constructed in the `write_tasks()` function
+* Change the string constructed in the `write_tasks()`
+

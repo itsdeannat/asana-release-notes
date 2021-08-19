@@ -5,6 +5,20 @@ from dotenv import load_dotenv
 from mdutils.mdutils import MdUtils
 
 
+def initialize_release_notes():
+    """Sets filename and header
+
+    Returns:
+        mdutils: Markdown file to hold list of completed tasks
+    """
+
+    release_notes = MdUtils(file_name='release-notes')
+    release_notes.new_header(level=1, title='Release notes draft')
+    release_notes.title = release_notes.title.replace('\n', '')
+
+    return release_notes
+
+
 class ReleaseNotesGenerator(object):
 
     def __init__(self, arg1=None):
@@ -24,19 +38,6 @@ class ReleaseNotesGenerator(object):
         except:
             print('could not authorize. please get or update ASANA_TOKEN')
             sys.exit(1)
-
-    def initialize_release_notes(self):
-        """Sets filename and header
-
-        Returns:
-            mdutils: Markdown file to hold list of completed tasks
-        """
-
-        release_notes = MdUtils(file_name='release-notes')
-        release_notes.new_header(level=1, title='Release notes draft')
-        release_notes.title = release_notes.title.replace('\n', '')
-
-        return release_notes
 
     def get_tasks_with_tag(self):
         """Gets all tasks in the Done section with a particular tag
@@ -101,7 +102,7 @@ class ReleaseNotesGenerator(object):
         of New Content, Major Enhancement, Minor Enhancement, or Bug Fix
         """
         release_notes_generator = ReleaseNotesGenerator()
-        release_notes = release_notes_generator.initialize_release_notes()
+        release_notes = initialize_release_notes()
         tasks = release_notes_generator.get_tasks_with_tag()
         release_notes = release_notes_generator.write_tasks('Feature', tasks, release_notes)
         release_notes = release_notes_generator.write_tasks('Bugfix', tasks, release_notes)

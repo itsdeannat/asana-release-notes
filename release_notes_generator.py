@@ -19,10 +19,10 @@ def initialize_release_notes():
     return release_notes
 
 
-class ReleaseNotesGenerator(object):
+class ReleaseNotesGenerator:
 
-    def __init__(self, arg1=None):
-        self.arg1 = arg1
+    def __init__(self):
+        pass
 
     load_dotenv()
     project_id = os.getenv('PROJECT_ID')
@@ -35,7 +35,7 @@ class ReleaseNotesGenerator(object):
         try:
             client.users.me()
             print('authorized')
-        except:
+        except asana.error.NoAuthorizationError as e:
             print('could not authorize. please get or update ASANA_TOKEN')
             sys.exit(1)
 

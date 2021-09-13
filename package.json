@@ -1,0 +1,29 @@
+{
+  "name": "asana-release-notes",
+  "version": "1.0.0",
+  "description": "Release notes generator for Asana tasks",
+  "scripts": {
+    "commit": "cz",
+    "release": "standard-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://itsdeannat@gitlab.com/itsdeannat/asana-release-notes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/itsdeannat/asana-release-notes/issues"
+  },
+  "homepage": "https://gitlab.com/itsdeannat/asana-release-notes#readme",
+  "devDependencies": {
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
+    "standard-version": "^9.3.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

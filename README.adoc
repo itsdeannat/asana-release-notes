@@ -92,7 +92,7 @@ release_notes.create_md_file()
 
 == Customizing this script
 
-To customize this script, you'll need to do the following:
+To customize this script, complete the following:
 
 * Set the environment variables mentioned in the <<_authentication>> section
 * Change the nested dictionary keys in the `write_tasks()` method (right now, it accesses the third custom field ("Task Type") in my project, but that may not be the case in yours)

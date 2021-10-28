@@ -25,6 +25,8 @@ pip install -r requirements.txt
 
 == Features
 
+This task has several features: authentication, initializing a Markdown file, and getting and writing tasks to a Markdown file.
+
 === Authentication
 
 This script first checks to make sure the user is authorized to make requests to Asana's API and also loads some environment variables:

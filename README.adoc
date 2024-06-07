@@ -13,6 +13,7 @@
 
 * Python 3
 * pip
+* An Asana developer account and API key
 
 == Installation
 
